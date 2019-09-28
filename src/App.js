@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { makeStyles, ThemeProvider } from '@material-ui/styles';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import UniswapLogo from './assets/uniswap.png';
-import { Select, Modal } from '@material-ui/core';
+import BG from './assets/uniswap2.png';
+import Btc from './assets/Btc';
+import Mkr from './assets/Mkr';
+import Dai from './assets/Dai';
+import Spank from './assets/Spank';
+import Zrx from './assets/Zrx';
+import { Select, Modal, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundImage:
-      'linear-gradient(320deg, rgba(254,0,176,0.32816876750700286) 0%, rgba(12,168,227,0.33) 100%)',
+    backgroundImage: `url(${BG})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
     margin: 0,
     position: 'absolute',
     padding: 0,
@@ -19,6 +27,13 @@ const useStyles = makeStyles(theme => ({
     left: 0,
   },
   appContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    width: '50%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -36,32 +51,104 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.7,
     height: 650,
   },
+  uniswapLogo: {
+    height: 300,
+    width: 300,
+  },
+  gridContainer: {
+    height: 500,
+    width: '100%',
+  },
+  logoContainers: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logos: {
+    height: 96,
+    width: 96,
+    '& > g': {
+      transform: 'scale(3)',
+    },
+  },
+  placeholder: {
+    marginTop: 50,
+    marginBottom: '25%',
+    height: 200,
+    width: 200,
+    backgroundColor: 'blue',
+  },
 }));
 
 const App = () => {
   const classes = useStyles();
-  const [token, setToken] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const setModalOpen = () => {
-    setModalIsOpen(true);
-  };
-
-  const setModalClose = () => {
-    setModalIsOpen(false);
-  };
+  const constraintsRef = useRef(null);
 
   return (
     <div className={classes.root}>
       <div className={classes.appContainer}>
-        <Select open={false} onClick={setModalOpen} />
-        <Modal
-          open={modalIsOpen}
-          onClose={setModalClose}
-          className={classes.modal}
-        >
-          <div className={classes.modalBackground}>Hello</div>
-        </Modal>
+        <div className={classes.contentContainer}>
+          <motion.div>
+            <img
+              src={UniswapLogo}
+              className={classes.uniswapLogo}
+              alt="uniLogo"
+            />
+          </motion.div>
+          <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            alignContent="center"
+            alignItems="center"
+            className={classes.gridContainer}
+          >
+            <motion.div>
+              <div className={classes.placeholder} />
+            </motion.div>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              alignConent="center"
+            >
+              <Grid item xs={4} className={classes.logoContainers}>
+                <motion.div>
+                  <Dai className={classes.logos} />
+                </motion.div>
+              </Grid>
+              <Grid item xs={4} className={classes.logoContainers}>
+                <motion.div>
+                  <Zrx className={classes.logos} />
+                </motion.div>
+              </Grid>
+              <Grid item xs={4} className={classes.logoContainers}>
+                <motion.div>
+                  <Btc className={classes.logos} />
+                </motion.div>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              direction="row"
+              justify="space-evenly"
+              alignItems="center"
+              alignContent="center"
+            >
+              <Grid item xs={2} className={classes.logoContainers}>
+                <motion.div>
+                  <Spank className={classes.logos} />
+                </motion.div>
+              </Grid>
+              <Grid item xs={2} className={classes.logoContainers}>
+                <motion.div>
+                  <Mkr className={classes.logos} />
+                </motion.div>
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
       </div>
     </div>
   );

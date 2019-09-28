@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.3",
     "@material-ui/styles": "^4.4.3",
+    "@svgr/cli": "^4.3.3",
     "axios": "^0.19.0",
     "framer-motion": "^1.6.7",
     "react": "^16.10.0",
@@ -15,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "svgr": "svgr -d src/assets/ src/Icons/"
   },
   "eslintConfig": {
     "extends": "react-app"
