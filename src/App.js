@@ -10,7 +10,7 @@ import Dai from './assets/Dai';
 import Spank from './assets/Spank';
 import Zrx from './assets/Zrx';
 import Box from './assets/Box';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,7 +49,6 @@ const useStyles = makeStyles(theme => ({
   uniswapLogo: {
     height: 100,
     width: 100,
-    marginBottom: 100,
   },
   gridContainer: {
     height: 500,
@@ -83,6 +82,13 @@ const useStyles = makeStyles(theme => ({
     top: '5%',
     transform: 'scale(0.33)',
   },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 100,
+  },
 }));
 
 const App = () => {
@@ -109,13 +115,30 @@ const App = () => {
     <div className={classes.root}>
       <div className={classes.appContainer}>
         <div className={classes.contentContainer}>
-          <motion.div transition={{ delay: 1.5 }} animate={{ opacity: [0, 1] }}>
-            <img
-              src={UniswapLogo}
-              className={classes.uniswapLogo}
-              alt="uniLogo"
-            />
-          </motion.div>
+          <div className={classes.titleContainer}>
+            <motion.div
+              transition={{ delay: 1.5 }}
+              animate={{ opacity: [0, 1] }}
+            >
+              <Typography variant="h2">UNI</Typography>
+            </motion.div>
+            <motion.div
+              transition={{ delay: 1.5 }}
+              animate={{ opacity: [0, 1] }}
+            >
+              <img
+                src={UniswapLogo}
+                className={classes.uniswapLogo}
+                alt="uniLogo"
+              />
+            </motion.div>
+            <motion.div
+              transition={{ delay: 1.5 }}
+              animate={{ opacity: [0, 1] }}
+            >
+              <Typography variant="h2">FEE</Typography>
+            </motion.div>
+          </div>
           <motion.div
             animate={{ opacity: [0, 1], scale: [0, 1] }}
             transition={{ duration: 0.2 }}
