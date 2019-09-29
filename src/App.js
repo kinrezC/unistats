@@ -34,8 +34,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   contentContainer: {
-    width: '50%',
-    minWidth: 700,
+    width: 850,
+    minWidth: 850,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -47,14 +47,15 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   uniswapLogo: {
-    height: 300,
-    width: 300,
+    height: 100,
+    width: 100,
+    marginBottom: 100,
   },
   gridContainer: {
     height: 500,
-    width: '100%',
-    minWidth: 700,
-    background: 'rgba(255, 255, 255, 0.2)',
+    width: 850,
+    minWidth: 850,
+    backgroundColor: 'white',
     borderRadius: 50,
   },
   logoContainers: {
@@ -86,6 +87,7 @@ const useStyles = makeStyles(theme => ({
 
 const App = () => {
   const classes = useStyles();
+  const [onBox, setOnBox] = useState(false);
   const r1 = useRef(null);
   const r2 = useRef(null);
   const r3 = useRef(null);
@@ -98,7 +100,7 @@ const App = () => {
       y: [20, 0],
       opacity: [0, 1],
       transition: {
-        delay: i * 0.15 + 0.3,
+        delay: i * 0.15 + 0.4,
       },
     }));
   }, [tokens]);
@@ -107,7 +109,7 @@ const App = () => {
     <div className={classes.root}>
       <div className={classes.appContainer}>
         <div className={classes.contentContainer}>
-          <motion.div>
+          <motion.div transition={{ delay: 1.5 }} animate={{ opacity: [0, 1] }}>
             <img
               src={UniswapLogo}
               className={classes.uniswapLogo}
@@ -127,7 +129,11 @@ const App = () => {
               alignItems="center"
               className={classes.grid}
             >
-              <motion.div className={classes.boxContainer}>
+              <motion.div
+                className={classes.boxContainer}
+                animate={tokens}
+                custom={0}
+              >
                 <Box className={classes.box} />
               </motion.div>
               <Grid
@@ -200,6 +206,27 @@ const App = () => {
                       dragConstraints={r4}
                       dragElastic={1}
                       dragMomentum={false}
+                      onDrag={(event, info) => {
+                        if (
+                          -320 < info.point.y &&
+                          -160 > info.point.y &&
+                          -270 < info.point.x &&
+                          -60 > info.point.x
+                        ) {
+                          setOnBox(true);
+                          console.log(info);
+                        }
+                      }}
+                      onDragEnd={(event, info) => {
+                        if (
+                          -320 < info.point.y &&
+                          -160 > info.point.y &&
+                          -270 < info.point.x &&
+                          -60 > info.point.x
+                        ) {
+                          setOnBox(true);
+                        }
+                      }}
                     >
                       <Mkr className={classes.logos} />
                     </motion.div>
