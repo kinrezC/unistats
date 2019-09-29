@@ -3,7 +3,7 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/styles';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import UniswapLogo from './assets/uniswap.png';
-import BG from './assets/uniswap2.png';
+// import BG from './assets/uniswap2.png';
 import Btc from './assets/Btc';
 import Mkr from './assets/Mkr';
 import Dai from './assets/Dai';
@@ -11,10 +11,11 @@ import Spank from './assets/Spank';
 import Zrx from './assets/Zrx';
 import Box from './assets/Box';
 import { Grid, Typography } from '@material-ui/core';
+import { white } from 'ansi-colors';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundImage: `url(${BG})`,
+    background: 'linear-gradient(90deg, rgba(247,227,248,1) 0%, rgba(222,146,228,1) 100%)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -54,8 +55,8 @@ const useStyles = makeStyles(theme => ({
     height: 500,
     width: 850,
     minWidth: 850,
-    backgroundColor: 'white',
-    borderRadius: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 12,
   },
   logoContainers: {
     display: 'flex',
@@ -75,11 +76,11 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 50,
+    marginBottom: 100,
   },
   box: {
     position: 'relative',
-    top: '5%',
+    top: '20%',
     transform: 'scale(0.33)',
   },
   titleContainer: {
@@ -87,7 +88,9 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 100,
+    marginBottom: 35,
+    marginTop: 40,
+    color: 'white',
   },
 }));
 
