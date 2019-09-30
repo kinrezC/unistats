@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 120,
+    paddingTop: 90,
   },
   modal: {
     display: 'flex',
@@ -76,6 +76,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    cursor: 'pointer',
   },
   logos: {
     height: 125,
@@ -143,6 +144,7 @@ const useStyles = makeStyles(theme => ({
   },
   logoWrapper: {
     marginBottom: 70,
+    width: 803,
   },
 }));
 
