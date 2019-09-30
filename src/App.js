@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Web3 from 'web3';
+import lodash from 'lodash';
 import { makeStyles } from '@material-ui/styles';
 import { motion, useAnimation } from 'framer-motion';
 import UniswapLogo from './assets/uniswap.png';
@@ -206,7 +207,7 @@ const App = () => {
     axios({
       method: 'post',
       url:
-        'https://us-central1-terminal-prd.cloudfunctions.net/null_4540beace001-406e-b869-7aef5d3ccce6',
+        'https://us-central1-terminal-prd.cloudfunctions.net/custom_api_4fbf32cafc0d-4eed-bed8-609aa7a80ae6',
       data: {
         'address': input,
         'block': blockNum,
@@ -218,12 +219,19 @@ const App = () => {
     })
       .then(res => {
         setLoading(false);
-        const eth = Math.floor(res.ethFees);
-        const token = Math.floor(res.tokenFees);
-        setEthFees(web3.utils.fromWei(eth, 'ether'));
-        setTokenFees(web3.utils.fromWei(token, 'ether'));
+        const eth = web3.utils.fromWei(
+          res.data.ethFees.substring(0, res.data.ethFees.indexOf('.')),
+          'ether',
+        );
+        const token = web3.utils.fromWei(
+          res.data.tokenFees.substring(0, res.data.tokenFees.indexOf('.')),
+          'ether',
+        );
+        setEthFees(eth.substring(0, eth.indexOf('.') + 3));
+        setTokenFees(token.substring(0, token.indexOf('.') + 3));
       })
       .catch(error => {
+        console.log(error);
         setLoading(false);
         setNetworkError('Failed to fetch data.');
       });
@@ -369,7 +377,7 @@ const App = () => {
                 {`${ethFees} accrued in ETH`}
               </Typography>
               <Typography variant="h5">
-                {`${tokenFees} accrued in ERC20 Tokens`}
+                {`${tokenFees} accrued in Tokens`}
               </Typography>
             </div>
           )}
