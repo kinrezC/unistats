@@ -120,9 +120,9 @@ const useStyles = makeStyles(theme => ({
   unistatsText: {
     color: '#DC6BE5',
     fontFamily: 'Nunito Sans',
-    letterSpacing: 0,
+    letterSpacing: 1.2,
     fontSize: 38,
-    marginTop: 20,
+    marginTop: 19,
     fontWeight: 235,
   },
   inputContainer: {
@@ -143,6 +143,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: 800,
     height: 75,
     backgroundColor: '#DC6BE5',
+    textTransform: 'none',
     '&:hover': {
       backgroundColor: '#DC6BE5',
     },
