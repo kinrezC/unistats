@@ -325,7 +325,6 @@ const App = () => {
               custom={7}
             >
               <Button
-                disabled={!isValidInput}
                 variant="contained"
                 className={classes.submitButton}
                 onClick={() => {
