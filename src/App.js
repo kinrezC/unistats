@@ -4,11 +4,11 @@ import Web3 from 'web3';
 import { makeStyles } from '@material-ui/styles';
 import { motion, useAnimation } from 'framer-motion';
 import UniswapLogo from './assets/uniswap.png';
-import Btc from './assets/Btc';
-import Mkr from './assets/Mkr';
-import Dai from './assets/Dai';
-import Spank from './assets/Spank';
-import Zrx from './assets/Zrx';
+import Btc from './assets/btc.png';
+import Mkr from './assets/maker.png';
+import Dai from './assets/dai.png';
+import Spank from './assets/spank.png';
+import Zrx from './assets/0x.png';
 import { Grid, Typography, TextField, Button } from '@material-ui/core';
 
 const exchangeAddresses = {
@@ -78,11 +78,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   logos: {
-    height: 80,
-    width: 80,
-    '& > g': {
-      transform: 'scale(2.5)',
-    },
+    height: 125,
+    width: 125,
   },
   inputField: {
     width: 800,
@@ -140,6 +137,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: 18,
     fontWeight: 600,
     fontFamily: 'Nunito Sans',
+  },
+  logoWrapper: {
+    marginBottom: 70,
   },
 }));
 
@@ -244,9 +244,9 @@ const App = () => {
               <Grid
                 container
                 direction="row"
-                justify="center"
+                justify="space-between"
                 alignItems="center"
-                alignConent="center"
+                className={classes.logoWrapper}
               >
                 <Grid item className={classes.logoContainers}>
                   <motion.div ref={r1} animate={tokens} custom={1}>
@@ -255,7 +255,7 @@ const App = () => {
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('DAI')}
                     >
-                      <Dai className={classes.logos} />
+                      <img src={Dai} alt="dai" className={classes.logos} />
                     </motion.div>
                   </motion.div>
                 </Grid>
@@ -266,7 +266,7 @@ const App = () => {
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('SPANK')}
                     >
-                      <Spank className={classes.logos} />
+                      <img src={Spank} alt="spank" className={classes.logos} />
                     </motion.div>
                   </motion.div>
                 </Grid>
@@ -277,7 +277,7 @@ const App = () => {
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('ZRX')}
                     >
-                      <Zrx className={classes.logos} />
+                      <img src={Zrx} alt="Zrx" className={classes.logos} />
                     </motion.div>
                   </motion.div>
                 </Grid>
@@ -288,7 +288,7 @@ const App = () => {
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('MKR')}
                     >
-                      <Mkr className={classes.logos} />
+                      <img src={Mkr} alt="maker" className={classes.logos} />
                     </motion.div>
                   </motion.div>
                 </Grid>
@@ -299,7 +299,7 @@ const App = () => {
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('WBTC')}
                     >
-                      <Btc className={classes.logos} />
+                      <img src={Btc} alt="Btc" className={classes.logos} />
                     </motion.div>
                   </motion.div>
                 </Grid>
