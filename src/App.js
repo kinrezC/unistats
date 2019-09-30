@@ -21,7 +21,11 @@ const exchangeAddresses = {
 
 //TODO: SET WEB3 Provider!!!@@@
 
-const web3 = new Web3(new Web3.providers.HttpProvider());
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(
+    'https://terminal.co/networks/ethereum_main/3428b88273cdf858',
+  ),
+);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -126,6 +130,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     marginTop: 30,
   },
+  resultsContainer: {
+    position: 'absolute',
+    bottom: 250,
+  },
 }));
 
 const App = () => {
@@ -140,7 +148,6 @@ const App = () => {
   const [isValidInput, setIsValidInput] = useState(false);
   const [ethFees, setEthFees] = useState('');
   const [tokenFees, setTokenFees] = useState('');
-  const [usdVal, setUsdVal] = useState('');
   const [networkError, setNetworkError] = useState(null);
 
   const mapTokenToInput = token => {
@@ -171,7 +178,7 @@ const App = () => {
     axios({
       method: 'post',
       url:
-        'https://us-central1-terminal-prd.cloudfunctions.net/null_1812b22548cc-4d63-839c-bc50198a8e28',
+        'https://us-central1-terminal-prd.cloudfunctions.net/null_4540beace001-406e-b869-7aef5d3ccce6',
       data: {
         'address': input,
         'block': blockNum,
@@ -182,10 +189,13 @@ const App = () => {
       },
     })
       .then(res => {
-        setEthFees();
+        setEthFees(res.ethFees);
+        setTokenFees(res.tokenFees);
+        console.log(ethFees, tokenFees);
       })
       .catch(error => {
         setNetworkError('fail :(');
+        console.log(error);
       });
   };
 
@@ -320,12 +330,16 @@ const App = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submitButton}
+                onClick={() => fetchData()}
               >
                 Get Historical Fees!
               </Button>
             </div>
           </motion.div>
         </div>
+        <motion.div className={classes.resultsContainer}>
+          <Typography variant="h3">{networkError}</Typography>
+        </motion.div>
       </div>
     </div>
   );
