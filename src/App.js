@@ -40,7 +40,7 @@ const SOCIAL_LINKS = {
   TWITTER: 'https://twitter.com/Kinrezc',
   GITHUB: 'https://github.com/kinrezC',
   MEDIUM: 'https://blog.terminal.co/',
-  TERMINAL: 'https://terminal.co/projects/yLYGOelqRdVbWaZJ/drive',
+  TERMINAL: 'https://terminal.co/resources/EXAWZlKJLXoeKPRY',
 };
 
 const useStyles = makeStyles(theme => ({
