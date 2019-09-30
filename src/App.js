@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Web3 from 'web3';
 import { makeStyles } from '@material-ui/styles';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import UniswapLogo from './assets/uniswap.png';
 import Btc from './assets/Btc';
 import Mkr from './assets/Mkr';
@@ -132,7 +132,10 @@ const useStyles = makeStyles(theme => ({
   },
   resultsContainer: {
     position: 'absolute',
-    bottom: 250,
+    bottom: 150,
+  },
+  ethFees: {
+    marginBottom: 12,
   },
 }));
 
@@ -194,7 +197,7 @@ const App = () => {
         console.log(ethFees, tokenFees);
       })
       .catch(error => {
-        setNetworkError('fail :(');
+        setNetworkError('Failed to fetch data.');
         console.log(error);
       });
   };
@@ -330,7 +333,10 @@ const App = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submitButton}
-                onClick={() => fetchData()}
+                onClick={() => {
+                  setNetworkError(false);
+                  fetchData();
+                }}
               >
                 Get Historical Fees!
               </Button>
@@ -338,7 +344,17 @@ const App = () => {
           </motion.div>
         </div>
         <motion.div className={classes.resultsContainer}>
-          <Typography variant="h3">{networkError}</Typography>
+          {networkError && <Typography variant="h5">{networkError}</Typography>}
+          {ethFees && (
+            <div className={classes.resContainer}>
+              <Typography variant="h5" className={classes.ethFees}>
+                {`${ethFees} accrued in ETH`}
+              </Typography>
+              <Typography variant="h5">
+                {`${tokenFees} accrued in ERC20 Tokens`}
+              </Typography>
+            </div>
+          )}
         </motion.div>
       </div>
     </div>
