@@ -175,22 +175,22 @@ const useStyles = makeStyles(theme => ({
   },
   githubIcon: {
     position: 'absolute',
-    top: 20,
+    top: 25,
     right: 190,
   },
   twitterIcon: {
     position: 'absolute',
-    top: 20,
+    top: 25,
     right: 135,
   },
   mediumIcon: {
     position: 'absolute',
-    top: 20,
+    top: 25,
     right: 80,
   },
   terminalIcon: {
     position: 'absolute',
-    top: 20,
+    top: 25,
     right: 25,
   },
 }));
