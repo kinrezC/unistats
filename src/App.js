@@ -217,8 +217,10 @@ const App = () => {
     })
       .then(res => {
         setLoading(false);
-        setEthFees(res.ethFees);
-        setTokenFees(res.tokenFees);
+        const eth = Math.floor(res.ethFees);
+        const token = Math.floor(res.tokenFees);
+        setEthFees(web3.utils.fromWei(eth, 'ether'));
+        setTokenFees(web3.utils.fromWei(token, 'ether'));
       })
       .catch(error => {
         setLoading(false);
