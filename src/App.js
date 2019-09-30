@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 120,
+    paddingTop: 80,
   },
   modal: {
     display: 'flex',
