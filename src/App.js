@@ -131,6 +131,9 @@ const useStyles = makeStyles(theme => ({
     minWidth: 800,
     height: 75,
     backgroundColor: '#DC6BE5',
+    '&:hover': {
+      backgroundColor: '#DC6BE5',
+    },
   },
   submitText: {
     color: 'white',
@@ -251,7 +254,7 @@ const App = () => {
                 <Grid item className={classes.logoContainers}>
                   <motion.div ref={r1} animate={tokens} custom={1}>
                     <motion.div
-                      whileHover={{ scale: 1.2 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('DAI')}
                     >
@@ -262,7 +265,7 @@ const App = () => {
                 <Grid item className={classes.logoContainers}>
                   <motion.div ref={r2} animate={tokens} custom={2}>
                     <motion.div
-                      whileHover={{ scale: 1.2 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('SPANK')}
                     >
@@ -273,7 +276,7 @@ const App = () => {
                 <Grid item className={classes.logoContainers}>
                   <motion.div ref={r3} animate={tokens} custom={3}>
                     <motion.div
-                      whileHover={{ scale: 1.2 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('ZRX')}
                     >
@@ -284,7 +287,7 @@ const App = () => {
                 <Grid item className={classes.logoContainers}>
                   <motion.div ref={r4} animate={tokens} custom={4}>
                     <motion.div
-                      whileHover={{ scale: 1.2 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('MKR')}
                     >
@@ -295,7 +298,7 @@ const App = () => {
                 <Grid item className={classes.logoContainers}>
                   <motion.div ref={r5} animate={tokens} custom={5}>
                     <motion.div
-                      whileHover={{ scale: 1.2 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => mapTokenToInput('WBTC')}
                     >
