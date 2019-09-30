@@ -9,8 +9,15 @@ import Mkr from './assets/Mkr';
 import Dai from './assets/Dai';
 import Spank from './assets/Spank';
 import Zrx from './assets/Zrx';
-import Box from './assets/Box';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, TextField, Button } from '@material-ui/core';
+
+const exchangeAddresses = {
+  DAI: '0x0',
+  DAI: '0x0',
+  DAI: '0x0',
+  DAI: '0x0',
+  DAI: '0x0',
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,7 +61,7 @@ const useStyles = makeStyles(theme => ({
     height: 500,
     width: 850,
     minWidth: 850,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
     borderRadius: 50,
   },
   logoContainers: {
@@ -87,19 +94,35 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 35,
     marginBottom: 100,
+  },
+  inputField: {
+    width: 400,
+  },
+  buttonContainer: {
+    width: '100%',
+    height: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 80,
   },
 }));
 
 const App = () => {
   const classes = useStyles();
-  const [onBox, setOnBox] = useState(false);
   const r1 = useRef(null);
   const r2 = useRef(null);
   const r3 = useRef(null);
   const r4 = useRef(null);
   const r5 = useRef(null);
   const tokens = useAnimation();
+  const [input, setInput] = useState('');
+  const [isValidInput, setIsValidInput] = useState(false);
+
+  const mapTokenToInput = token => {
+    setInput(exchangeAddresses[token]);
+  };
 
   useEffect(() => {
     tokens.start(i => ({
@@ -155,9 +178,13 @@ const App = () => {
               <motion.div
                 className={classes.boxContainer}
                 animate={tokens}
-                custom={0}
+                custom={6}
               >
-                <Box className={classes.box} />
+                <TextField
+                  variant="outlined"
+                  className={classes.inputField}
+                  label="Exchange Address"
+                />
               </motion.div>
               <Grid
                 container
@@ -169,10 +196,8 @@ const App = () => {
                 <Grid item xs={4} className={classes.logoContainers}>
                   <motion.div ref={r1} animate={tokens} custom={1}>
                     <motion.div
-                      drag
-                      dragConstraints={r1}
-                      dragElastic={1}
-                      dragMomentum={false}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       <Dai className={classes.logos} />
                     </motion.div>
@@ -181,10 +206,8 @@ const App = () => {
                 <Grid item xs={4} className={classes.logoContainers}>
                   <motion.div ref={r3} animate={tokens} custom={3}>
                     <motion.div
-                      drag
-                      dragConstraints={r3}
-                      dragElastic={1}
-                      dragMomentum={false}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       <Zrx className={classes.logos} />
                     </motion.div>
@@ -193,10 +216,8 @@ const App = () => {
                 <Grid item xs={4} className={classes.logoContainers}>
                   <motion.div ref={r5} animate={tokens} custom={5}>
                     <motion.div
-                      drag
-                      dragConstraints={r5}
-                      dragElastic={1}
-                      dragMomentum={false}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       <Btc className={classes.logos} />
                     </motion.div>
@@ -213,10 +234,8 @@ const App = () => {
                 <Grid item xs={2} className={classes.logoContainers}>
                   <motion.div ref={r2} animate={tokens} custom={2}>
                     <motion.div
-                      drag
-                      dragConstraints={r2}
-                      dragElastic={1}
-                      dragMomentum={false}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       <Spank className={classes.logos} />
                     </motion.div>
@@ -225,31 +244,9 @@ const App = () => {
                 <Grid item xs={2} className={classes.logoContainers}>
                   <motion.div ref={r4} animate={tokens} custom={4}>
                     <motion.div
-                      drag
-                      dragConstraints={r4}
-                      dragElastic={1}
-                      dragMomentum={false}
-                      onDrag={(event, info) => {
-                        if (
-                          -320 < info.point.y &&
-                          -160 > info.point.y &&
-                          -270 < info.point.x &&
-                          -60 > info.point.x
-                        ) {
-                          setOnBox(true);
-                          console.log(info);
-                        }
-                      }}
-                      onDragEnd={(event, info) => {
-                        if (
-                          -320 < info.point.y &&
-                          -160 > info.point.y &&
-                          -270 < info.point.x &&
-                          -60 > info.point.x
-                        ) {
-                          setOnBox(true);
-                        }
-                      }}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => mapTokenToInput('DAI')}
                     >
                       <Mkr className={classes.logos} />
                     </motion.div>
@@ -257,6 +254,16 @@ const App = () => {
                 </Grid>
               </Grid>
             </Grid>
+            <div className={classes.buttonContainer}>
+              <Button
+                disabled={!isValidInput}
+                variant="contained"
+                color="primary"
+                className={classes.submitButton}
+              >
+                Get Historical Fees!
+              </Button>
+            </div>
           </motion.div>
         </div>
       </div>
