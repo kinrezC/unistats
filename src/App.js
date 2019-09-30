@@ -140,6 +140,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 18,
     fontWeight: 600,
     fontFamily: 'Nunito Sans',
+    letterSpacing: 1.2,
   },
   logoWrapper: {
     marginBottom: 70,
@@ -227,8 +228,8 @@ const App = () => {
         <div className={classes.contentContainer}>
           <motion.div animate={tokens} custom={1} style={{ marginBottom: 55 }}>
             <Typography className={classes.infoText}>
-              Choose from the below tokens or enter your own token address to
-              find out the historical fees.
+              Choose one of the tokens below or enter a custom exchange address
+              to get the historical fees.
             </Typography>
           </motion.div>
           <motion.div
@@ -318,7 +319,11 @@ const App = () => {
                 />
               </Grid>
             </motion.div>
-            <div className={classes.buttonContainer}>
+            <motion.div
+              className={classes.buttonContainer}
+              animate={tokens}
+              custom={7}
+            >
               <Button
                 disabled={!isValidInput}
                 variant="contained"
@@ -329,10 +334,10 @@ const App = () => {
                 }}
               >
                 <Typography className={classes.submitText}>
-                  Get Historical Fees!
+                  Get Historical Fees
                 </Typography>
               </Button>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
         <motion.div className={classes.resultsContainer}>
