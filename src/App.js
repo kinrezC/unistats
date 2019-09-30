@@ -19,8 +19,6 @@ const exchangeAddresses = {
   WBTC: '0x4d2f5cfba55ae412221182d8475bc85799a5644b',
 };
 
-//TODO: SET WEB3 Provider!!!@@@
-
 const web3 = new Web3(
   new Web3.providers.HttpProvider(
     'https://terminal.co/networks/ethereum_main/3428b88273cdf858',
@@ -29,8 +27,7 @@ const web3 = new Web3(
 
 const useStyles = makeStyles(theme => ({
   root: {
-    background:
-      'linear-gradient(90deg, rgba(247,227,248,1) 0%, rgba(222,146,228,1) 100%)',
+    backgroundColor: 'white',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -50,12 +47,13 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   contentContainer: {
-    width: 850,
-    minWidth: 850,
+    width: 830,
+    minWidth: 830,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingTop: 120,
   },
   modal: {
     display: 'flex',
@@ -63,15 +61,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   uniswapLogo: {
-    height: 100,
-    width: 100,
+    height: 45,
+    width: 45,
+    marginTop: 24,
+    marginRight: 10,
+    marginLeft: 24,
   },
   gridContainer: {
     height: 500,
-    width: 850,
-    minWidth: 850,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: 12,
+    width: 830,
+    minWidth: 830,
   },
   logoContainers: {
     display: 'flex',
@@ -85,43 +84,8 @@ const useStyles = makeStyles(theme => ({
       transform: 'scale(2.5)',
     },
   },
-  boxContainer: {
-    width: '100%',
-    height: 150,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 100,
-  },
-  box: {
-    position: 'relative',
-    top: '20%',
-    transform: 'scale(0.33)',
-  },
-  titleContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 35,
-    marginTop: 40,
-    color: 'white',
-  },
   inputField: {
-    width: 430,
-    '& .MuiOutlinedInput-root': {
-      fontFamily: 'Nunito Sans',
-      color: 'white',
-      '& fieldset': {
-        borderColor: '#393939',
-      },
-      '&:hover fieldset': {
-        borderColor: 'white',
-      },
-      '& .Mui-focused fieldset': {
-        borderColor: 'white',
-      },
-    },
+    width: 800,
   },
   buttonContainer: {
     width: '100%',
@@ -136,6 +100,46 @@ const useStyles = makeStyles(theme => ({
   },
   ethFees: {
     marginBottom: 12,
+  },
+  topBar: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  unistatsText: {
+    color: '#DC6BE5',
+    fontFamily: 'Nunito Sans',
+    letterSpacing: 0,
+    fontSize: 38,
+    marginTop: 20,
+    fontWeight: 235,
+  },
+  inputContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  infoText: {
+    fontFamily: 'Nunito Sans',
+    fontSize: 36,
+    fontWeight: 600,
+    textAlign: 'center',
+  },
+  submitButton: {
+    with: 800,
+    minWidth: 800,
+    height: 75,
+    backgroundColor: '#DC6BE5',
+  },
+  submitText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 600,
+    fontFamily: 'Nunito Sans',
   },
 }));
 
@@ -204,32 +208,26 @@ const App = () => {
 
   return (
     <div className={classes.root}>
+      <motion.div
+        transition={{ delay: 1.5 }}
+        animate={{ opacity: [0, 1] }}
+        className={classes.topBar}
+      >
+        <img
+          src={UniswapLogo}
+          alt="uniswap-logo"
+          className={classes.uniswapLogo}
+        />
+        <Typography className={classes.unistatsText}>UNISTATS</Typography>
+      </motion.div>
       <div className={classes.appContainer}>
         <div className={classes.contentContainer}>
-          <div className={classes.titleContainer}>
-            <motion.div
-              transition={{ delay: 1.5 }}
-              animate={{ opacity: [0, 1] }}
-            >
-              <Typography variant="h2">UNI</Typography>
-            </motion.div>
-            <motion.div
-              transition={{ delay: 1.5 }}
-              animate={{ opacity: [0, 1] }}
-            >
-              <img
-                src={UniswapLogo}
-                className={classes.uniswapLogo}
-                alt="uniLogo"
-              />
-            </motion.div>
-            <motion.div
-              transition={{ delay: 1.5 }}
-              animate={{ opacity: [0, 1] }}
-            >
-              <Typography variant="h2">FEE</Typography>
-            </motion.div>
-          </div>
+          <motion.div animate={tokens} custom={1} style={{ marginBottom: 55 }}>
+            <Typography className={classes.infoText}>
+              Choose from the below tokens or enter your own token address to
+              find out the historical fees.
+            </Typography>
+          </motion.div>
           <motion.div
             animate={{ opacity: [0, 1], scale: [0, 1] }}
             transition={{ duration: 0.2 }}
@@ -243,26 +241,14 @@ const App = () => {
               alignItems="center"
               className={classes.grid}
             >
-              <motion.div
-                className={classes.boxContainer}
-                animate={tokens}
-                custom={6}
-              >
-                <TextField
-                  variant="outlined"
-                  className={classes.inputField}
-                  label="Exchange Address"
-                  value={input}
-                />
-              </motion.div>
               <Grid
                 container
                 direction="row"
-                justify="space-between"
+                justify="center"
                 alignItems="center"
                 alignConent="center"
               >
-                <Grid item xs={4} className={classes.logoContainers}>
+                <Grid item className={classes.logoContainers}>
                   <motion.div ref={r1} animate={tokens} custom={1}>
                     <motion.div
                       whileHover={{ scale: 1.2 }}
@@ -273,7 +259,18 @@ const App = () => {
                     </motion.div>
                   </motion.div>
                 </Grid>
-                <Grid item xs={4} className={classes.logoContainers}>
+                <Grid item className={classes.logoContainers}>
+                  <motion.div ref={r2} animate={tokens} custom={2}>
+                    <motion.div
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => mapTokenToInput('SPANK')}
+                    >
+                      <Spank className={classes.logos} />
+                    </motion.div>
+                  </motion.div>
+                </Grid>
+                <Grid item className={classes.logoContainers}>
                   <motion.div ref={r3} animate={tokens} custom={3}>
                     <motion.div
                       whileHover={{ scale: 1.2 }}
@@ -284,7 +281,18 @@ const App = () => {
                     </motion.div>
                   </motion.div>
                 </Grid>
-                <Grid item xs={4} className={classes.logoContainers}>
+                <Grid item className={classes.logoContainers}>
+                  <motion.div ref={r4} animate={tokens} custom={4}>
+                    <motion.div
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => mapTokenToInput('MKR')}
+                    >
+                      <Mkr className={classes.logos} />
+                    </motion.div>
+                  </motion.div>
+                </Grid>
+                <Grid item className={classes.logoContainers}>
                   <motion.div ref={r5} animate={tokens} custom={5}>
                     <motion.div
                       whileHover={{ scale: 1.2 }}
@@ -296,49 +304,30 @@ const App = () => {
                   </motion.div>
                 </Grid>
               </Grid>
-              <Grid
-                container
-                direction="row"
-                justify="space-evenly"
-                alignItems="center"
-                alignContent="center"
-              >
-                <Grid item xs={2} className={classes.logoContainers}>
-                  <motion.div ref={r2} animate={tokens} custom={2}>
-                    <motion.div
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => mapTokenToInput('SPANK')}
-                    >
-                      <Spank className={classes.logos} />
-                    </motion.div>
-                  </motion.div>
-                </Grid>
-                <Grid item xs={2} className={classes.logoContainers}>
-                  <motion.div ref={r4} animate={tokens} custom={4}>
-                    <motion.div
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => mapTokenToInput('MKR')}
-                    >
-                      <Mkr className={classes.logos} />
-                    </motion.div>
-                  </motion.div>
-                </Grid>
-              </Grid>
             </Grid>
+            <motion.div animate={tokens} custom={6}>
+              <Grid container justify="center" alignContent="center">
+                <TextField
+                  variant="outlined"
+                  className={classes.inputField}
+                  label="Exchange Address"
+                  value={input}
+                />
+              </Grid>
+            </motion.div>
             <div className={classes.buttonContainer}>
               <Button
                 disabled={!isValidInput}
                 variant="contained"
-                color="primary"
                 className={classes.submitButton}
                 onClick={() => {
                   setNetworkError(false);
                   fetchData();
                 }}
               >
-                Get Historical Fees!
+                <Typography className={classes.submitText}>
+                  Get Historical Fees!
+                </Typography>
               </Button>
             </div>
           </motion.div>
