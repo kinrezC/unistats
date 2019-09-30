@@ -76,6 +76,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    cursor: 'pointer',
   },
   logos: {
     height: 125,
@@ -144,6 +145,7 @@ const useStyles = makeStyles(theme => ({
   },
   logoWrapper: {
     marginBottom: 70,
+    width: 803,
   },
 }));
 
