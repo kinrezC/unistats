@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Web3 from 'web3';
-import lodash from 'lodash';
 import { makeStyles } from '@material-ui/styles';
 import { motion, useAnimation } from 'framer-motion';
 import UniswapLogo from './assets/uniswap.png';
@@ -16,7 +15,12 @@ import {
   Typography,
   TextField,
   Button,
+  ButtonBase,
 } from '@material-ui/core';
+import Hex from './assets/Hex';
+import Github from './assets/Github';
+import Medium from './assets/Medium';
+import Twitter from './assets/Twitter';
 
 const exchangeAddresses = {
   DAI: '0x09cabec1ead1c0ba254b09efb3ee13841712be14',
@@ -31,6 +35,13 @@ const web3 = new Web3(
     'https://terminal.co/networks/ethereum_main/3428b88273cdf858',
   ),
 );
+
+const SOCIAL_LINKS = {
+  TWITTER: 'https://twitter.com/Kinrezc',
+  GITHUB: 'https://github.com/kinrezC',
+  MEDIUM: 'https://blog.terminal.co/',
+  TERMINAL: 'https://terminal.co/projects/yLYGOelqRdVbWaZJ/drive',
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -160,6 +171,26 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 70,
     width: 803,
   },
+  githubIcon: {
+    position: 'absolute',
+    top: 8,
+    left: 'calc(50% - 95px)',
+  },
+  twitterIcon: {
+    position: 'absolute',
+    top: 8,
+    left: 'calc(50% - 45px)',
+  },
+  mediumIcon: {
+    position: 'absolute',
+    top: 8,
+    left: 'calc(50% + 5px)',
+  },
+  terminalIcon: {
+    position: 'absolute',
+    top: 8,
+    left: 'calc(50% + 55px)',
+  },
 }));
 
 const App = () => {
@@ -170,6 +201,7 @@ const App = () => {
   const r4 = useRef(null);
   const r5 = useRef(null);
   const tokens = useAnimation();
+  const footer = useAnimation();
   const [input, setInput] = useState('');
   const [ethFees, setEthFees] = useState('');
   const [tokenFees, setTokenFees] = useState('');
@@ -196,6 +228,16 @@ const App = () => {
       },
     }));
   }, [tokens]);
+
+  useEffect(() => {
+    footer.start(i => ({
+      opacity: [0, 1],
+      transition: {
+        delay: i * 1,
+        duration: 1,
+      },
+    }));
+  }, [footer]);
 
   const fetchData = async () => {
     if (!/^(0x)+[0-9a-fA-F]{40}$/i.test(input)) {
@@ -385,6 +427,54 @@ const App = () => {
           {invalidInput && <Typography variant="h5">{invalidInput}</Typography>}
         </motion.div>
       </div>
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        animate={footer}
+        custom={0}
+        className={classes.githubIcon}
+      >
+        <ButtonBase
+          onClick={() => window.open(SOCIAL_LINKS['GITHUB'], '_blank')}
+        >
+          <Github style={{ height: 35, width: 35 }} />
+        </ButtonBase>
+      </motion.div>
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        animate={footer}
+        custom={1}
+        className={classes.twitterIcon}
+      >
+        <ButtonBase
+          onClick={() => window.open(SOCIAL_LINKS['TWITTER'], '_blank')}
+        >
+          <Twitter style={{ height: 35, width: 35 }} />
+        </ButtonBase>
+      </motion.div>
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        animate={footer}
+        custom={2}
+        className={classes.mediumIcon}
+      >
+        <ButtonBase
+          onClick={() => window.open(SOCIAL_LINKS['MEDIUM'], '_blank')}
+        >
+          <Medium style={{ height: 35, width: 35 }} />
+        </ButtonBase>
+      </motion.div>
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        animate={footer}
+        custom={3}
+        className={classes.terminalIcon}
+      >
+        <ButtonBase
+          onClick={() => window.open(SOCIAL_LINKS['TERMINAL'], '_blank')}
+        >
+          <Hex style={{ height: 35, width: 35 }} />
+        </ButtonBase>
+      </motion.div>
     </div>
   );
 };
