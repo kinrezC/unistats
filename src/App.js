@@ -175,23 +175,23 @@ const useStyles = makeStyles(theme => ({
   },
   githubIcon: {
     position: 'absolute',
-    top: 8,
-    left: 'calc(50% - 95px)',
+    top: 20,
+    right: 190,
   },
   twitterIcon: {
     position: 'absolute',
-    top: 8,
-    left: 'calc(50% - 45px)',
+    top: 20,
+    right: 135,
   },
   mediumIcon: {
     position: 'absolute',
-    top: 8,
-    left: 'calc(50% + 5px)',
+    top: 20,
+    right: 80,
   },
   terminalIcon: {
     position: 'absolute',
-    top: 8,
-    left: 'calc(50% + 55px)',
+    top: 20,
+    right: 25,
   },
 }));
 
@@ -433,54 +433,56 @@ const App = () => {
           </motion.div>
         </div>
       </div>
-      <motion.div
-        whileHover={{ scale: 1.1 }}
-        animate={footer}
-        custom={0}
-        className={classes.githubIcon}
-      >
-        <ButtonBase
-          onClick={() => window.open(SOCIAL_LINKS['GITHUB'], '_blank')}
+      <div className={classes.socialWrapper}>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          animate={footer}
+          custom={0}
+          className={classes.githubIcon}
         >
-          <Github style={{ height: 35, width: 35 }} />
-        </ButtonBase>
-      </motion.div>
-      <motion.div
-        whileHover={{ scale: 1.1 }}
-        animate={footer}
-        custom={1}
-        className={classes.twitterIcon}
-      >
-        <ButtonBase
-          onClick={() => window.open(SOCIAL_LINKS['TWITTER'], '_blank')}
+          <ButtonBase
+            onClick={() => window.open(SOCIAL_LINKS['GITHUB'], '_blank')}
+          >
+            <Github style={{ height: 35, width: 35 }} />
+          </ButtonBase>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          animate={footer}
+          custom={1}
+          className={classes.twitterIcon}
         >
-          <Twitter style={{ height: 35, width: 35 }} />
-        </ButtonBase>
-      </motion.div>
-      <motion.div
-        whileHover={{ scale: 1.1 }}
-        animate={footer}
-        custom={2}
-        className={classes.mediumIcon}
-      >
-        <ButtonBase
-          onClick={() => window.open(SOCIAL_LINKS['MEDIUM'], '_blank')}
+          <ButtonBase
+            onClick={() => window.open(SOCIAL_LINKS['TWITTER'], '_blank')}
+          >
+            <Twitter style={{ height: 35, width: 35 }} />
+          </ButtonBase>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          animate={footer}
+          custom={2}
+          className={classes.mediumIcon}
         >
-          <Medium style={{ height: 35, width: 35 }} />
-        </ButtonBase>
-      </motion.div>
-      <motion.div
-        whileHover={{ scale: 1.1 }}
-        animate={footer}
-        custom={3}
-        className={classes.terminalIcon}
-      >
-        <ButtonBase
-          onClick={() => window.open(SOCIAL_LINKS['TERMINAL'], '_blank')}
+          <ButtonBase
+            onClick={() => window.open(SOCIAL_LINKS['MEDIUM'], '_blank')}
+          >
+            <Medium style={{ height: 35, width: 35 }} />
+          </ButtonBase>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          animate={footer}
+          custom={3}
+          className={classes.terminalIcon}
         >
-          <Hex style={{ height: 35, width: 35 }} />
-        </ButtonBase>
-      </motion.div>
+          <ButtonBase
+            onClick={() => window.open(SOCIAL_LINKS['TERMINAL'], '_blank')}
+          >
+            <Hex style={{ height: 35, width: 35 }} />
+          </ButtonBase>
+        </motion.div>
+      </div>
     </div>
   );
 };
