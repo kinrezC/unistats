@@ -116,8 +116,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: 30,
   },
   resultsContainer: {
-    position: 'absolute',
-    bottom: '22%',
+    position: 'relative',
+    marginTop: 20,
+    display: 'flex',
+    justifyContent: 'center',
   },
   ethFees: {
     marginBottom: 12,
@@ -409,23 +411,27 @@ const App = () => {
                 </Typography>
               </Button>
             </motion.div>
+            <motion.div className={classes.resultsContainer}>
+              {networkError && (
+                <Typography variant="h5">{networkError}</Typography>
+              )}
+              {ethFees && (
+                <div className={classes.resContainer}>
+                  <Typography variant="h5" className={classes.ethFees}>
+                    {`${ethFees} accrued in ETH`}
+                  </Typography>
+                  <Typography variant="h5">
+                    {`${tokenFees} accrued in Tokens`}
+                  </Typography>
+                </div>
+              )}
+              {loading && <CircularProgress />}
+              {invalidInput && (
+                <Typography variant="h5">{invalidInput}</Typography>
+              )}
+            </motion.div>
           </motion.div>
         </div>
-        <motion.div className={classes.resultsContainer}>
-          {networkError && <Typography variant="h5">{networkError}</Typography>}
-          {ethFees && (
-            <div className={classes.resContainer}>
-              <Typography variant="h5" className={classes.ethFees}>
-                {`${ethFees} accrued in ETH`}
-              </Typography>
-              <Typography variant="h5">
-                {`${tokenFees} accrued in Tokens`}
-              </Typography>
-            </div>
-          )}
-          {loading && <CircularProgress />}
-          {invalidInput && <Typography variant="h5">{invalidInput}</Typography>}
-        </motion.div>
       </div>
       <motion.div
         whileHover={{ scale: 1.1 }}
