@@ -100,7 +100,7 @@ const useStyles = makeStyles(theme => ({
   },
   resultsContainer: {
     position: 'absolute',
-    bottom: 150,
+    bottom: '22%',
   },
   ethFees: {
     marginBottom: 12,
