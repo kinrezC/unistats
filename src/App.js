@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import Web3 from 'web3';
 import { makeStyles } from '@material-ui/styles';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import UniswapLogo from './assets/uniswap.png';
@@ -11,12 +12,16 @@ import Zrx from './assets/Zrx';
 import { Grid, Typography, TextField, Button } from '@material-ui/core';
 
 const exchangeAddresses = {
-  DAI: '0x0',
-  DAI: '0x0',
-  DAI: '0x0',
-  DAI: '0x0',
-  DAI: '0x0',
+  DAI: '0x09cabec1ead1c0ba254b09efb3ee13841712be14',
+  SPANK: '0x4e395304655f0796bc3bc63709db72173b9ddf98',
+  ZRX: '0xae76c84c9262cdb9abc0c2c8888e62db8e22a0bf',
+  MKR: '0x2c4bd064b998838076fa341a83d007fc2fa50957',
+  WBTC: '0x4d2f5cfba55ae412221182d8475bc85799a5644b',
 };
+
+//TODO: SET WEB3 Provider!!!@@@
+
+const web3 = new Web3(new Web3.providers.HttpProvider());
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -99,7 +104,20 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
   },
   inputField: {
-    width: 400,
+    width: 430,
+    '& .MuiOutlinedInput-root': {
+      fontFamily: 'Nunito Sans',
+      color: 'white',
+      '& fieldset': {
+        borderColor: '#393939',
+      },
+      '&:hover fieldset': {
+        borderColor: 'white',
+      },
+      '& .Mui-focused fieldset': {
+        borderColor: 'white',
+      },
+    },
   },
   buttonContainer: {
     width: '100%',
@@ -120,10 +138,23 @@ const App = () => {
   const tokens = useAnimation();
   const [input, setInput] = useState('');
   const [isValidInput, setIsValidInput] = useState(false);
+  const [ethFees, setEthFees] = useState('');
+  const [tokenFees, setTokenFees] = useState('');
+  const [usdVal, setUsdVal] = useState('');
+  const [networkError, setNetworkError] = useState(null);
 
   const mapTokenToInput = token => {
     setInput(exchangeAddresses[token]);
+    setIsValidInput(true);
   };
+
+  useEffect(() => {
+    if (/^(0x)+[0-9a-fA-F]{40}$/i.test(input)) {
+      setIsValidInput(true);
+      return;
+    }
+    setIsValidInput(false);
+  }, [input]);
 
   useEffect(() => {
     tokens.start(i => ({
@@ -134,6 +165,29 @@ const App = () => {
       },
     }));
   }, [tokens]);
+
+  const fetchData = async () => {
+    const blockNum = await web3.eth.getBlockNumber();
+    axios({
+      method: 'post',
+      url:
+        'https://us-central1-terminal-prd.cloudfunctions.net/null_1812b22548cc-4d63-839c-bc50198a8e28',
+      data: {
+        'address': input,
+        'block': blockNum,
+      },
+      headers: {
+        'ApiKey': 'IYFLu2akdq6D4WhIqhZVVw==',
+        'ApiSecret': 'lnlZOjCeKJm2OOh5vQ2FxNwwRYm7PCt10XNEU/8Bkyw=',
+      },
+    })
+      .then(res => {
+        setEthFees();
+      })
+      .catch(error => {
+        setNetworkError('fail :(');
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -185,6 +239,7 @@ const App = () => {
                   variant="outlined"
                   className={classes.inputField}
                   label="Exchange Address"
+                  value={input}
                 />
               </motion.div>
               <Grid
@@ -199,6 +254,7 @@ const App = () => {
                     <motion.div
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
+                      onClick={() => mapTokenToInput('DAI')}
                     >
                       <Dai className={classes.logos} />
                     </motion.div>
@@ -209,6 +265,7 @@ const App = () => {
                     <motion.div
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
+                      onClick={() => mapTokenToInput('ZRX')}
                     >
                       <Zrx className={classes.logos} />
                     </motion.div>
@@ -219,6 +276,7 @@ const App = () => {
                     <motion.div
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
+                      onClick={() => mapTokenToInput('WBTC')}
                     >
                       <Btc className={classes.logos} />
                     </motion.div>
@@ -237,6 +295,7 @@ const App = () => {
                     <motion.div
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
+                      onClick={() => mapTokenToInput('SPANK')}
                     >
                       <Spank className={classes.logos} />
                     </motion.div>
@@ -247,7 +306,7 @@ const App = () => {
                     <motion.div
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
-                      onClick={() => mapTokenToInput('DAI')}
+                      onClick={() => mapTokenToInput('MKR')}
                     >
                       <Mkr className={classes.logos} />
                     </motion.div>
