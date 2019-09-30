@@ -164,24 +164,21 @@ const App = () => {
   const r5 = useRef(null);
   const tokens = useAnimation();
   const [input, setInput] = useState('');
-  const [isValidInput, setIsValidInput] = useState(false);
   const [ethFees, setEthFees] = useState('');
   const [tokenFees, setTokenFees] = useState('');
   const [networkError, setNetworkError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [invalidInput, setInvalidInput] = useState('');
 
   const mapTokenToInput = token => {
     setInput(exchangeAddresses[token]);
-    setIsValidInput(true);
+    setInvalidInput('');
   };
 
-  useEffect(() => {
-    if (/^(0x)+[0-9a-fA-F]{40}$/i.test(input)) {
-      setIsValidInput(true);
-      return;
-    }
-    setIsValidInput(false);
-  }, [input]);
+  const handleChange = e => {
+    setInvalidInput('');
+    setInput(e.target.value);
+  };
 
   useEffect(() => {
     tokens.start(i => ({
@@ -194,6 +191,10 @@ const App = () => {
   }, [tokens]);
 
   const fetchData = async () => {
+    if (!/^(0x)+[0-9a-fA-F]{40}$/i.test(input)) {
+      setInvalidInput('Invalid Input');
+      return;
+    }
     setLoading(true);
     const blockNum = await web3.eth.getBlockNumber();
     axios({
@@ -213,12 +214,10 @@ const App = () => {
         setLoading(false);
         setEthFees(res.ethFees);
         setTokenFees(res.tokenFees);
-        console.log(ethFees, tokenFees);
       })
       .catch(error => {
         setLoading(false);
         setNetworkError('Failed to fetch data.');
-        console.log(error);
       });
   };
 
@@ -328,6 +327,7 @@ const App = () => {
                   className={classes.inputField}
                   label="Exchange Address"
                   value={input}
+                  onChange={handleChange}
                 />
               </Grid>
             </motion.div>
@@ -366,6 +366,7 @@ const App = () => {
             </div>
           )}
           {loading && <CircularProgress />}
+          {invalidInput && <Typography variant="h5">{invalidInput}</Typography>}
         </motion.div>
       </div>
     </div>
