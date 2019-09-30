@@ -9,7 +9,13 @@ import Mkr from './assets/maker.png';
 import Dai from './assets/dai.png';
 import Spank from './assets/spank.png';
 import Zrx from './assets/0x.png';
-import { Grid, Typography, TextField, Button } from '@material-ui/core';
+import {
+  CircularProgress,
+  Grid,
+  Typography,
+  TextField,
+  Button,
+} from '@material-ui/core';
 
 const exchangeAddresses = {
   DAI: '0x09cabec1ead1c0ba254b09efb3ee13841712be14',
@@ -162,6 +168,7 @@ const App = () => {
   const [ethFees, setEthFees] = useState('');
   const [tokenFees, setTokenFees] = useState('');
   const [networkError, setNetworkError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const mapTokenToInput = token => {
     setInput(exchangeAddresses[token]);
@@ -187,6 +194,7 @@ const App = () => {
   }, [tokens]);
 
   const fetchData = async () => {
+    setLoading(true);
     const blockNum = await web3.eth.getBlockNumber();
     axios({
       method: 'post',
@@ -202,11 +210,13 @@ const App = () => {
       },
     })
       .then(res => {
+        setLoading(false);
         setEthFees(res.ethFees);
         setTokenFees(res.tokenFees);
         console.log(ethFees, tokenFees);
       })
       .catch(error => {
+        setLoading(false);
         setNetworkError('Failed to fetch data.');
         console.log(error);
       });
@@ -331,6 +341,8 @@ const App = () => {
                 className={classes.submitButton}
                 onClick={() => {
                   setNetworkError(false);
+                  setTokenFees('');
+                  setEthFees('');
                   fetchData();
                 }}
               >
@@ -353,6 +365,7 @@ const App = () => {
               </Typography>
             </div>
           )}
+          {loading && <CircularProgress />}
         </motion.div>
       </div>
     </div>
