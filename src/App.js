@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 80,
+    paddingTop: '3%',
   },
   modal: {
     display: 'flex',
@@ -90,6 +90,11 @@ const useStyles = makeStyles(theme => ({
   },
   inputField: {
     width: 800,
+    height: 75,
+    fontFamily: 'Nunito Sans',
+    '& .MuiOutlinedInput-input': {
+      fontFamily: 'Nunito Sans',
+    },
   },
   buttonContainer: {
     width: '100%',
